@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <script>
+      var deviceWidth = document.documentElement.clientWidth;
+      if(deviceWidth > 640) deviceWidth = 640;  //如果大于640视为pc端
+      var rate = 750/100; //以iphone6的宽750为标准
+      document.documentElement.style.fontSize = document.documentElement.clientWidth * window.devicePixelRatio / rate + 'px';
+  </script>
+  <title>React Recruiting</title>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
