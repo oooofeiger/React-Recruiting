@@ -26,10 +26,10 @@ const checkStatus = response => {
   }
   const errortext = codeMessage[response.status] || response.statusText;
   Toast.fail( `请求错误 ${errortext}`);
-  // const error = new Error(errortext);
-  // error.name = response.status;
-  // error.response = response;
-  // throw error;
+  const error = new Error(errortext);
+  error.name = response.status;
+  error.response = response;
+  throw error;
 };
 /**
  * Requests a URL, returning a promise.
@@ -44,7 +44,7 @@ export default function request(url, option) {
   };
 
   const defaultOptions = {
-    // credentials: 'include'
+    credentials: 'include'//允许使用缓存
     // mode: "cors"
   };
   const newOptions = { ...defaultOptions, ...options };
@@ -75,12 +75,12 @@ export default function request(url, option) {
     .then(response => {
       // DELETE and 204 do not return data by default
       // using .json will report an error.
-      // if (newOptions.method === 'DELETE' || response.status === 204) {
-      //   return response.text();
-      // }
-      if ( response.status === 204) {
+      if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text();
       }
+      // if ( response.status === 204) {
+      //   return response.text();
+      // }
       return response.json();
       
     })

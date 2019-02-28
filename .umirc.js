@@ -26,6 +26,7 @@ export default {
       { path: '/', component: './index' },
       { path: '/login', component: './login'},
       { path: '/register', component: './register'},
+      { component: './exception/404.js'}
       // // { path: '/list', component: './b', Routes: ['./routes/PrivateRoute.js'] },
       // { path: '/users', component: './users/_layout',
       //   routes: [
