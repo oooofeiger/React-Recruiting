@@ -13,10 +13,17 @@ class Register extends React.Component{
             type: 'genius',
         }
         this.register = this.register.bind(this);
+        this.selectType = this.selectType.bind(this);
     }
 
     register = () => {
-        this.props.history.push('/login')
+        this.props.history.push('/user/login')
+    }
+
+    selectType = (type) =>{
+        this.setState({
+            type
+        })
     }
     
 
@@ -24,19 +31,20 @@ class Register extends React.Component{
         const { type } = this.state;
         return (
             <div>
-                <Logo />
-                <h2>注册页</h2>
                 <List>
                     <InputItem>用户名</InputItem>
+                    <WingBlank />
                     <InputItem>密码</InputItem>
+                    <WingBlank />
                     <InputItem>确认密码</InputItem>
-                    <RadioItem checked={type==='genius'}>牛人</RadioItem>
-                    <RadioItem checked={type==='boss'}>BOSS</RadioItem>
+                    <WingBlank />
+                    <RadioItem onChange={this.selectType.bind(this,'genius')} checked={type==='genius'}>牛人</RadioItem>
+                    <RadioItem onChange={this.selectType.bind(this,'boss')} checked={type==='boss'}>BOSS</RadioItem>
                 </List>
                 <WingBlank>
-                    <Button type="primary">登录</Button>
-                    <WhiteSpace />
                     <Button type="primary" onClick={this.register}>注册</Button>
+                    <WhiteSpace />
+                    <Button type="primary">返回登录</Button>
                 </WingBlank>
             </div>
         )

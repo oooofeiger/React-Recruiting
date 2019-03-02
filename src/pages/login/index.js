@@ -12,15 +12,12 @@ class Login extends React.Component{
     }
 
     register = () => {
-        this.props.history.push('/register')
+        this.props.history.push('/user/register')
     }
 
     render(){
         return (
             <div>
-                <Logo />
-                <h2>登录页</h2>
-                
                 <WingBlank>
                     <List>
                         <InputItem>用户</InputItem>

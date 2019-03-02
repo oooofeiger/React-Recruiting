@@ -23,23 +23,30 @@ export default {
     }],
   ],
   routes: [
-      { path: '/', component: './index' },
-      { path: '/login', component: './login'},
-      { path: '/register', component: './register'},
-      { component: './exception/404.js'}
-      // // { path: '/list', component: './b', Routes: ['./routes/PrivateRoute.js'] },
-      // { path: '/users', component: './users/_layout',
-      //   routes: [
-      //     { path: '/users/detail', component: './users/detail' },
-      //     { path: '/users/:id', component: './users/id' }
-      //   ]
-      // },
+      { 
+        path: '/user', component: '../layouts/userLayout.js',
+        routes: [
+          { path: '/user', redirect: '/user/login' },
+          { path: '/user/login', component: './login' },
+          { path: '/user/register', component: './register' }
+        ]
+      },
+      {
+        path: '/', 
+        component: '../layouts/basicLayout.js',
+        Routes:['src/pages/Authorized'],
+        routes: [
+          {path:'/', redirect: '/index'},
+          { path: '/index', component: './index' },
+        ]
+      },
+      { component: './exception/404.js'},
   ],
   proxy: {
-    "/data": {
+    "/api": {
       target: "http://localhost:9093",
       changeOrigin: true,
-      pathRewrite: {'^/data': ''}
+      pathRewrite: { "^/api" : "" }
     }
   },
 }

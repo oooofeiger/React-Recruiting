@@ -5,7 +5,7 @@ export default{
     state:{},
     effects: {
         *get(_, {call, put}){
-             const res = yield request('/data/data');
+             const res = yield request('/api/data');
             yield put({
                 type: 'testData',
                 payload: res
