@@ -1,3 +1,7 @@
 {
-  "extends": "eslint-config-umi"
+  "parser": "babel-eslint",
+  "extends": "eslint-config-umi",
+  "rules": {
+    "import/no-unresolved": [2, { "ignore": ["^@/", "^umi/"] }]
+  }
 }

@@ -1,17 +1,31 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2016",
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,
     "jsx": "react",
-    "lib": ["esnext", "dom"],
+    "lib": ["es6", "dom"],
     "esModuleInterop": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "allowJs": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
-    "allowSyntheticDefaultImports": true
-  }
+    "experimentalDecorators": true,
+
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "tslint:latest",
+    "tslint-config-prettier"
+  ]
 }

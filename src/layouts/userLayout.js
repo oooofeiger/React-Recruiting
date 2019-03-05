@@ -1,4 +1,4 @@
-import Logo from '@/components/logo';
+import Logo from '@/components/WrapLogo';
 
 export default function(props) {
     return (

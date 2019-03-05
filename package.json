@@ -11,11 +11,13 @@
   "dependencies": {
     "antd": "^3.12.1",
     "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.4",
     "dva": "^2.5.0-beta.2",
     "express": "^4.16.4",
     "mongoose": "^5.4.13",
     "nodemon": "^1.18.10",
+    "rc-form": "^2.4.3",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },

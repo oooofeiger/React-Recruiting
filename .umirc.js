@@ -26,9 +26,9 @@ export default {
       { 
         path: '/user', component: '../layouts/userLayout.js',
         routes: [
-          { path: '/user', redirect: '/user/login' },
-          { path: '/user/login', component: './login' },
-          { path: '/user/register', component: './register' }
+          { path: '/user', redirect: '/user/Login' },
+          { path: '/user/login', component: './Login' },
+          { path: '/user/register', component: './Register' }
         ]
       },
       {

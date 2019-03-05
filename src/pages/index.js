@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 
-export default 
+
 @connect(({test})=>({
   test
 }))
@@ -23,4 +23,4 @@ class Test extends React.Component{
   }
   
 }
-
+export default Test
