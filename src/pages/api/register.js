@@ -6,3 +6,10 @@ export async function register(params){
         body: params
     })
 }
+
+export async function login(params){
+    return request('/api/user/login',{
+        method: 'POST',
+        body: params
+    })
+}

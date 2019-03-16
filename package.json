@@ -15,11 +15,12 @@
     "cookie-parser": "^1.4.4",
     "dva": "^2.5.0-beta.2",
     "express": "^4.16.4",
-    "mongoose": "^5.4.13",
+    "mongoose": "^5.4.19",
     "nodemon": "^1.18.10",
     "rc-form": "^2.4.3",
     "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react-dom": "^16.7.0",
+    "utility": "^1.15.1"
   },
   "devDependencies": {
     "@types/jest": "^23.3.12",

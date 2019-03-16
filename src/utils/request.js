@@ -85,10 +85,10 @@ export default function request(url, option) {
       
     })
     .then(res => {
-      // if (res.meta.message && res.meta.message !== 'ok') {
-      //   Toast.info(res.meta.message);
-      // }
       Toast.hide();
+      if (res.code === 1 && res.message) {
+        Toast.info(res.message, 2);
+      }
       return res;
     })
     .catch(e => {

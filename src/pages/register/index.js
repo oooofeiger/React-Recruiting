@@ -1,4 +1,5 @@
 import React from 'react';
+import router from 'umi/router';
 import { List, InputItem, WingBlank, WhiteSpace, Button, Radio, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
@@ -19,6 +20,13 @@ class Register extends React.Component{
         this.onSubmit = this.onSubmit.bind(this);
         this.ensurePwd = this.ensurePwd.bind(this);
         this.clickError = this.clickError.bind(this);
+    }
+
+    componentWillReceiveProps(props){
+        const { user } = props;
+        if(user && user.register && user.register.path){
+            router.push(user.register.path);
+        }
     }
 
     onSubmit = () => {
@@ -59,7 +67,7 @@ class Register extends React.Component{
     }
 
     clickError = (message) => {
-        Toast.fail(message)
+        Toast.fail(message, 1)
     }
     
 
@@ -80,8 +88,8 @@ class Register extends React.Component{
                                 ]
                             })}
                             clear
-                            error={!!getFieldError('user') || user && user.register}
-                            onErrorClick={this.clickError.bind(this, user.register)}
+                            error={!!getFieldError('user') || user && user.register && user.register.code === 0}
+                            onErrorClick={this.clickError.bind(this, user && user.register && user.register.code === 0 && user.register.message)}
                             placeholder="请输入用户名"
                         >用户名</InputItem>
                         <WingBlank />
@@ -89,12 +97,13 @@ class Register extends React.Component{
                             {...getFieldProps('pwd',{
                                 rules: [
                                     {
-                                        requierd: true, message: '密码不能为空',
+                                        required: true, message: '密码不能为空',
                                     }
                                 ]
                             })}
                             clear
                             error={!!getFieldError('pwd')}
+                            onErrorClick={this.clickError.bind(this, getFieldError('pwd'))}
                             placeholder="请输入密码"
                             type="password"
                         >密码</InputItem>
@@ -103,7 +112,7 @@ class Register extends React.Component{
                             {...getFieldProps('repeatPwd',{
                                 rules: [
                                     {
-                                        requierd: true, message: '密码不能为空',
+                                        required: true, message: '密码不能为空',
                                     },
                                     {
                                         validator: this.ensurePwd
@@ -112,6 +121,7 @@ class Register extends React.Component{
                             })}
                             clear
                             error={!!getFieldError('repeatPwd')}
+                            onErrorClick={this.clickError.bind(this, getFieldError('repeatPwd'))}
                             placeholder="请输再次输入密码"
                             type="password"
                         >确认密码</InputItem>
