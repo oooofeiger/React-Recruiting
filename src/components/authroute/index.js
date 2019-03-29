@@ -8,8 +8,8 @@ export default class Authroute extends React.Component {
     }
 
     componentDidMount(){
-        const { identity } = this.props;
-        if(!identity){
+        const { isAuth } = this.props;
+        if(!isAuth){
             router.push('/user/login')
         }
     }

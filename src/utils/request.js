@@ -86,7 +86,7 @@ export default function request(url, option) {
     })
     .then(res => {
       Toast.hide();
-      if (res.code === 1 && res.message) {
+      if (res.message) {
         Toast.info(res.message, 2);
       }
       return res;

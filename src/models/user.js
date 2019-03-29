@@ -1,4 +1,5 @@
-import { register, login } from '@/pages/api/register';
+import router from 'umi/router';
+import { register, login, getAccess } from '@/pages/api/user';
 import { getRedirectPatch } from '@/utils/tool';
 
 export default{
@@ -11,8 +12,11 @@ export default{
                 const { message, code } = res;
                 yield put({
                     type: 'save',
-                    payload: { register:{code, message, path: getRedirectPatch(payload.type)}}
+                    payload: { register:{code, message}}
                 })
+                if(code === 1){
+                    router.push(getRedirectPatch(payload.type))
+                }
             } catch (error) {
                 console.log(error)
             }
@@ -20,12 +24,28 @@ export default{
         *handleLogin({ payload }, { call, put}){
             try {
                 const res = yield call(login, payload);
-                const { data } = res;
+                const { data, code } = res;
                 if(!data) return;
-                localStorage.setItem('identity', data.type);
+                // localStorage.setItem('identity', data.type);
                 yield put({
                     type: 'save',
-                    payload: {login:{data, path: getRedirectPatch(data.type, data.avatar)}}
+                    payload: {login: {data}}
+                })
+                if(code === 1){
+                    router.push(getRedirectPatch(data.type, data.avatar))
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        *handleGetAccess(_, { call, put}){
+            try {
+                const res = yield call(getAccess);
+                yield put({
+                    type: 'save',
+                    payload: { 
+                        access: res
+                    }
                 })
             } catch (error) {
                 console.log(error)

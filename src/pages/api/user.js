@@ -13,3 +13,9 @@ export async function login(params){
         body: params
     })
 }
+
+export async function getAccess(){
+    return request('/api/user/info',{
+        method: 'get'
+    })
+}

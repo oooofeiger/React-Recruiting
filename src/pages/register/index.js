@@ -3,7 +3,7 @@ import router from 'umi/router';
 import { List, InputItem, WingBlank, WhiteSpace, Button, Radio, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';
-import styles from './style.less';
+// import styles from './style.less';
 
 const RadioItem = Radio.RadioItem;
 
@@ -21,14 +21,7 @@ class Register extends React.Component{
         this.ensurePwd = this.ensurePwd.bind(this);
         this.clickError = this.clickError.bind(this);
     }
-
-    componentWillReceiveProps(props){
-        const { user } = props;
-        if(user && user.register && user.register.path){
-            router.push(user.register.path);
-        }
-    }
-
+    
     onSubmit = () => {
         const { form, dispatch } = this.props;
         const { type } = this.state;

@@ -36,11 +36,11 @@ export default {
         component: '../layouts/basicLayout.js',
         Routes:['src/pages/Authorized'],
         routes: [
-          {path:'/', redirect: '/index'},
-          { path: '/index', component: './index' },
+          { path:'/', redirect: '/accout' },
+          { path: '/accout/bossinfo', component: './Info/bossinfo'}
         ]
       },
-      { component: './exception/404.js'},
+      { component: './404.js'}
   ],
   proxy: {
     "/api": {
