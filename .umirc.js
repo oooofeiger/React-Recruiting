@@ -33,11 +33,27 @@ export default {
       },
       {
         path: '/', 
-        component: '../layouts/basicLayout.js',
+        // component: '../layouts/basicLayout.js',
         Routes:['src/pages/Authorized'],
         routes: [
           { path:'/', redirect: '/accout' },
-          { path: '/accout/bossinfo', component: './Info/bossinfo'}
+          { path:'/accout', redirect: '/accout/bossinfo'},
+          { path: '/accout/bossinfo', component: './Info/bossinfo'},
+          { path: '/accout/geniusinfo', component: './Info/geniusinfo'},
+          // { 
+          //   path: '/accout',
+          //   component: '../layouts/basicLayout.js',
+          //   routes: [
+          //     {
+          //       path: 'accout/boss',
+          //       component: './Boss'
+          //     },
+          //     {
+          //       path: 'accout/genius',
+          //       component: './Genius'
+          //     }
+          //   ]
+          // }
         ]
       },
       { component: './404.js'}

@@ -19,3 +19,10 @@ export async function getAccess(){
         method: 'get'
     })
 }
+
+export async function infoUpdate(params){
+    return request('/api/user/infoUpdate',{
+        method: 'POST',
+        body: params
+    })
+}

@@ -7,7 +7,7 @@ import styles from './style.less';
 
 @createForm()
 @connect(({user})=>({user}))
-class BossInfo extends React.Component{
+class GeniusInfo extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -43,33 +43,21 @@ class BossInfo extends React.Component{
 
         return (
             <div>
-                <NavBar mode="dark">BOSS完善信息页面</NavBar>
+                <NavBar mode="dark">牛人完善信息页面</NavBar>
                 <AvatarSelector selectAvatar={this.selectAvatar}></AvatarSelector>
                 <List>
                     <InputItem 
                         {...getFieldProps('title',{
                         })}
                         clear
-                        placeholder="请输入招聘职位"
-                    >招聘职位</InputItem>
-                    <InputItem 
-                        {...getFieldProps('company',{
-                        })}
-                        clear
-                        placeholder="请输入公司名称"
-                    >公司名称</InputItem>
-                    <InputItem 
-                        {...getFieldProps('money',{
-                        })}
-                        clear
-                        placeholder="请输入职位薪资"
-                    >职位薪资</InputItem>
+                        placeholder="求职岗位"
+                    >求职岗位</InputItem>
                     <TextareaItem 
                         {...getFieldProps('desc',{
                         })}
                         clear
-                        placeholder="请输入职位要求"
-                        title="职位要求"
+                        placeholder="请输个人简介"
+                        title="个人简介"
                         autoHeight
                         rows={3}
                     ></TextareaItem>
@@ -80,4 +68,4 @@ class BossInfo extends React.Component{
     }
 }
 
-export default BossInfo
+export default GeniusInfo

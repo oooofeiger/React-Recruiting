@@ -55,6 +55,7 @@ Router.post('/login', function(req, res){
 })
 
 Router.get('/info', function(req, res){
+    debugger;
     const { userid } = req.cookies;
     if(!userid){
         return res.json({code: 0})
@@ -66,6 +67,22 @@ Router.get('/info', function(req, res){
         if(doc){
             return res.json({code: 1, data: doc})
         }
+    })
+})
+
+Router.post('/infoUpdate', function(req, res){
+    const { userid } = req.cookies;
+    if(!userid){
+        return res.json({code: 0})
+    }
+    const body = req.body;
+    User.findByIdAndUpdate(userid, body, function(err, doc){
+        const data = {
+            user: doc.user,
+            type: doc.type,
+            ...body
+        };
+        return res.json({code: 1, data})
     })
 })
 
