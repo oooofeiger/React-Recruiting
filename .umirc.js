@@ -37,23 +37,32 @@ export default {
         Routes:['src/pages/Authorized'],
         routes: [
           { path:'/', redirect: '/accout' },
-          { path:'/accout', redirect: '/accout/bossinfo'},
+          // { path:'/accout', redirect: '/accout/bossinfo'},
           { path: '/accout/bossinfo', component: './Info/bossinfo'},
           { path: '/accout/geniusinfo', component: './Info/geniusinfo'},
-          // { 
-          //   path: '/accout',
-          //   component: '../layouts/basicLayout.js',
-          //   routes: [
-          //     {
-          //       path: 'accout/boss',
-          //       component: './Boss'
-          //     },
-          //     {
-          //       path: 'accout/genius',
-          //       component: './Genius'
-          //     }
-          //   ]
-          // }
+          { 
+            path: '/accout',
+            component: './accout/_layout',
+            routes: [
+              {path: '/accout', redirect: '/accout/me'},
+              {
+                path: '/accout/boss',
+                component: './Accout/Boss'
+              },
+              {
+                path: '/accout/genius',
+                component: './Accout/Genius'
+              },
+              {
+                path: '/accout/msg',
+                component: './Accout/Msg'
+              },
+              {
+                path: '/accout/me',
+                component: './Accout/User'
+              }
+            ]
+          }
         ]
       },
       { component: './404.js'}
