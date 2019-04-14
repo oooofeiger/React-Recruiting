@@ -26,3 +26,7 @@ export async function infoUpdate(params){
         body: params
     })
 }
+
+export async function getUserList(params){
+    return request('/api/user/list?type=' + params)
+}

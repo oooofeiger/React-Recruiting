@@ -1,5 +1,4 @@
 import React from 'react';
-import router from 'umi/router';
 import { List, InputItem, WingBlank, WhiteSpace, Button, Radio, Toast } from 'antd-mobile';
 import { createForm } from 'rc-form';
 import { connect } from 'dva';

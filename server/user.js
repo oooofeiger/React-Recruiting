@@ -11,8 +11,9 @@ Router.get('/list', function(req, res){
     // User.remove({},function(err, doc){
     //     if(!err) console.log(doc)
     // })
-    User.find({}, function(err,doc){
-        return res.json(doc)
+    const { type } = req.query;
+    User.find({type}, _filter, function(err,doc){
+        return res.json({code:1,data:doc})
     })
 })
 
@@ -55,7 +56,6 @@ Router.post('/login', function(req, res){
 })
 
 Router.get('/info', function(req, res){
-    debugger;
     const { userid } = req.cookies;
     if(!userid){
         return res.json({code: 0})

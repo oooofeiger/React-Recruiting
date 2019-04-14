@@ -47,7 +47,7 @@ class GeniusInfo extends React.Component{
                 <AvatarSelector selectAvatar={this.selectAvatar}></AvatarSelector>
                 <List>
                     <InputItem 
-                        {...getFieldProps('title',{
+                        {...getFieldProps('job',{
                         })}
                         clear
                         placeholder="求职岗位"

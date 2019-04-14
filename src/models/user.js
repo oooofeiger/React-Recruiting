@@ -1,5 +1,5 @@
 import router from 'umi/router';
-import { register, login, getAccess, infoUpdate } from '@/pages/api/user';
+import { register, login, getAccess, infoUpdate, getUserList } from '@/pages/api/user';
 import { getRedirectPatch } from '@/utils/tool';
 
 export default{
@@ -66,6 +66,21 @@ export default{
                     router.push(getRedirectPatch(data.type, data.avatar))
                 }
             } catch (error) {
+                console.log(error)
+            }
+        },
+        *handleGetUserList({ payload }, {call, put}){
+            try{
+                const res = yield call(getUserList, payload);
+                const { data } = res;
+
+                yield put({
+                    type: 'save',
+                    payload: {
+                        userList: data
+                    }
+                })
+            } catch(error) {
                 console.log(error)
             }
         }

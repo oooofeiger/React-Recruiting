@@ -16,7 +16,7 @@
     "dva": "^2.5.0-beta.2",
     "express": "^4.16.4",
     "mongoose": "^5.4.19",
-    "nodemon": "^1.18.10",
+    "nodemon": "^1.18.11",
     "prop-types": "^15.7.2",
     "rc-form": "^2.4.3",
     "react": "^16.7.0",

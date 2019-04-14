@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
-import { TabBar } from 'antd-mobile';
+import router from 'umi/router';
+import { TabBar, NavBar, Icon } from 'antd-mobile';
+import styles from './style.less';
 
 const TabBarItem = TabBar.Item;
 
@@ -14,14 +16,22 @@ class BottomNavListBar extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            selectedTab: props.navList && props.navList[0].icon
+            selectedTab: ''
         }
+    }
+
+    componentDidMount(){
+        const { path } = this.props;
+        this.setState({
+            selectedTab: path
+        })
     }
 
     handleClickTabBar = (item) => {
         this.setState({
-            selectedTab: item.icon
+            selectedTab: item.path
         })
+        router.push(item.path);
     }
 
 
@@ -46,10 +56,14 @@ class BottomNavListBar extends React.Component{
                             title={item.text}
                             icon={{uri: require(`../../assets/images/${item.icon}.png`)}}
                             selectedIcon={{uri: require(`../../assets/images/${item.icon}-active.png`)}}
-                            selected={item.icon === selectedTab}
+                            selected={item.path === selectedTab}
                             onPress={this.handleClickTabBar.bind(this,item)}
                         >
-                            {item.Component}
+                        <NavBar icon={<Icon type="left" />} className={styles.fixedHeader} mode="dard">{item.title}</NavBar>
+                        <div style={{marginTop:45}}>
+                            {item.component}
+                        </div>
+                            
                         </TabBarItem>
                     ))
                 }
