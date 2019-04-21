@@ -1,5 +1,5 @@
+/* eslint-disable import/no-unresolved */
 import React from 'react';
-import { WingBlank, WhiteSpace, Card } from 'antd-mobile';
 import { connect } from 'dva';
 import CardList from '@/components/CardList';
 

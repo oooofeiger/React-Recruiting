@@ -1,12 +1,34 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Result, List, WhiteSpace } from 'antd-mobile';
+import { Result, List, WhiteSpace, Modal } from 'antd-mobile';
+import browserCookies from 'browser-cookies';
 
 const ListItem = List.Item;
 const Brief = ListItem.Brief;
+
 @connect(({user})=>({user:user.access.data}))
 class User extends React.Component{
+    constructor(props){
+        super(props);
+        
 
+        this.logout = this.logout.bind(this);
+    }
+
+    logout = () => {
+        const { dispatch } = this.props;
+        let alert = Modal.alert;
+        alert = alert('注销', '确认退出登录吗?', [
+            { text: '取消', onPress: () => console.log('cancel') },
+            { text: '确认', onPress: () => {
+                browserCookies.erase('userid');
+                dispatch({
+                    type:'user/handleLogout'
+                }) 
+            }},
+          ])
+        
+    }
 
     render(){
         const { user } = this.props;
@@ -30,7 +52,7 @@ class User extends React.Component{
                 </List>
                 <WhiteSpace/>
                 <List>
-                    <ListItem  >退出登录</ListItem>
+                    <ListItem onClick={this.logout} >退出登录</ListItem>
                 </List>
             </div>
         ):''

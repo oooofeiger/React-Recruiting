@@ -12,8 +12,10 @@
     "antd": "^3.12.1",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "browser-cookies": "^1.2.0",
     "cookie-parser": "^1.4.4",
-    "dva": "^2.5.0-beta.2",
+    "dva": "^2.5.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
     "express": "^4.16.4",
     "mongoose": "^5.4.19",
     "nodemon": "^1.18.11",
@@ -41,7 +43,7 @@
     "tslint": "^5.12.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^3.6.0",
-    "umi": "^2.6.11",
+    "umi": "^2.6.14",
     "umi-plugin-react": "^1.4.0"
   },
   "lint-staged": {

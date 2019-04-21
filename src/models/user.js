@@ -83,6 +83,12 @@ export default{
             } catch(error) {
                 console.log(error)
             }
+        },
+        *handleLogout(_, {call, put}){
+            yield put({
+                type: 'clear'
+            })
+            router.push('/user/login')
         }
     },
 
@@ -92,6 +98,9 @@ export default{
                 ...state,
                 ...payload
             }
+        },
+        clear(){
+            return {}
         }
     }
 }
