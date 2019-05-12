@@ -37,6 +37,7 @@ export default {
         Routes:['src/pages/Authorized'],
         routes: [
           { path:'/', redirect: '/accout' },
+          
           // { path:'/accout', redirect: '/accout/bossinfo'},
           { path: '/accout/bossinfo', component: './Info/bossinfo'},
           { path: '/accout/geniusinfo', component: './Info/geniusinfo'},
@@ -62,9 +63,14 @@ export default {
                 component: './Accout/User'
               }
             ]
+          },
+          {
+            path: '/chat/:user',
+            component: './Chat'
           }
         ]
       },
+      
       { component: './404.js'}
   ],
   proxy: {
