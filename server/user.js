@@ -4,9 +4,10 @@ const Model = require('./model');
 
 const Router = express.Router();
 const User = Model.getModel('user');
+const Chat = Model.getModel('chat');
 
 const _filter = { pwd: 0, _v: 0}; //过滤掉密码和版本号
-
+// Chat.remove({},function(){})
 Router.get('/list', function(req, res){
     // User.remove({},function(err, doc){
     //     if(!err) console.log(doc)
@@ -14,6 +15,19 @@ Router.get('/list', function(req, res){
     const { type } = req.query;
     User.find({type}, _filter, function(err,doc){
         return res.json({code:1,data:doc})
+    })
+})
+
+Router.get('/getMsg', function(req, res){
+    const user = req.cookies.userid;
+    console.log(req.cookies,'user');
+    // '$or':[{from: user, to: user}]
+    Chat.find({}, function(err, doc){
+        if(!err) {
+            return res.json({code: 1, data: doc});
+        }else {
+            console.log('/getMsg:'+err)
+        }
     })
 })
 

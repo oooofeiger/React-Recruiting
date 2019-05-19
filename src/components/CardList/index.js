@@ -14,7 +14,7 @@ class CardList extends React.Component{
     }
 
     handleClick = (item) => {
-        router.push(`/chat/${item.user}`);
+        router.push(`/chat/${item._id}`);
     }
 
     render(){

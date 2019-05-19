@@ -1,13 +1,16 @@
 
-#chat-page{
+.chat-page{
     .chat-me{
-        .am-list-extra{
+        :global{
+            .am-list-extra{
             flex-basis: auto;
+            }
+            .am-list-content{
+                padding-right: 15px;
+                text-align: right;
+            }
         }
-        .am-list-content{
-            padding-right: 15px;
-            text-align: right;
-        }
+        
     }
 }
 .stickFooter{
@@ -15,4 +18,10 @@
     position: absolute;
     bottom: 0;
     width: 100%;
+    background: #eee;
+    :global{
+        .am-list-item .am-input-extra{
+            max-height: 100px;
+        }
+    }
 }
