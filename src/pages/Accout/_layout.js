@@ -4,12 +4,29 @@ import Boss from '@/pages/Accout/Boss';
 import Genius from '@/pages/Accout/Genius';
 import Msg from '@/pages/Accout/Msg';
 import User from '@/pages/Accout/User';
-import BottomNavListBar from '@/components/bottomNavListBar'
+import BottomNavListBar from '@/components/bottomNavListBar';
+import io from 'socket.io-client';
+const socket = io('ws://localhost:9093');
 // import './style.less'
 
-@connect(({user})=>({user}))
+@connect(({user,chat})=>({user,chat}))
 class Dashboard extends React.Component{
 
+  componentDidMount(){
+    const { dispatch, chat } = this.props;
+    if(chat.chatMsg.length) return;
+    dispatch({
+        type: 'chat/handleGetChatMsg'
+    })
+    socket.on('recvmsg',(data)=>{
+        console.log('recvmsg',data); 
+        dispatch({
+            type: 'chat/handleRecvMsg',
+            payload: {...data}
+        })
+    })
+
+  }
 
   render(){
     const { user, location } = this.props;

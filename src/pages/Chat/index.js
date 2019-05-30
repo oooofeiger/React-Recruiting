@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
-import { List, InputItem, NavBar } from 'antd-mobile';
+import router from 'umi/router';
+import { List, InputItem, NavBar, Icon } from 'antd-mobile';
+import { getChatId } from '@/utils/tool';
 import style from './style.less';
 
 import io from 'socket.io-client';
@@ -14,12 +16,14 @@ class Chat extends React.Component{
         this.state={
             text: '',
             msg: [],
-            user: props.user._id
+            userId: props.user._id,
+            targetId: props.match.params.user
         }
     }
 
     componentDidMount(){
-        const { dispatch } = this.props;
+        const { dispatch, chat } = this.props;
+        if(chat.chatMsg.length) return;
         dispatch({
             type: 'chat/handleGetChatMsg'
         })
@@ -30,14 +34,15 @@ class Chat extends React.Component{
                 payload: {...data}
             })
         })
+    
+      }
 
-    }
-
+      //todo: 重复监听recvmsg，一次发送产生三次聊天记录
     
     handleSubmit = () => {
         const { user, chat, dispatch, match } = this.props;
         const from = user._id;
-        const to = match.params.user;
+        const to = this.state.targetId;
         const msg = this.state.text;
         socket.emit('sendmsg',{from, to, msg});
         this.setState({text: ''})
@@ -45,23 +50,35 @@ class Chat extends React.Component{
 
     render(){
         const { chat } = this.props;
-        const { text, user } = this.state;
+        const { text, userId, targetId } = this.state;
+        if(!chat.users[userId])return null;
+        const chatId = getChatId(userId, targetId);
+        const chatMsg = chat.chatMsg.filter(v=>v.chatId === chatId)
         return (
             <div>
-                <NavBar mode="dark">{user}</NavBar>
+                <NavBar 
+                    mode="dark"
+                    icon={<Icon type="left"/>}
+                    onLeftClick={()=>{
+                        router.goBack();
+                    }}
+                >
+                    {chat.users[targetId].name}
+                </NavBar>
                 <div className={style['chat-page']}>
                     {
-                        chat && chat.chatMsg.map((val,i)=>{
-                            return val.from !== user?(
+                        chatMsg.map((val,i)=>{
+                            const avatar = require(`../../assets/images/${chat.users[val.from].avatar}.png`);
+                            return val.from !== userId?(
                                 <List key={i}>
                                     <Item
-                                        thumb={""}
+                                        thumb={avatar}
                                         
                                     >{val.content}</Item>
                                 </List>
                             ):(
                                 <List key={i}>
-                                    <Item extra={'avatar'} className={style['chat-me']}>{val.content}</Item>
+                                    <Item extra={<img src={avatar} alt=""/>} className={style['chat-me']}>{val.content}</Item>
                                 </List>
                             )
                         })

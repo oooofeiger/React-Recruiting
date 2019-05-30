@@ -21,14 +21,20 @@ Router.get('/list', function(req, res){
 Router.get('/getMsg', function(req, res){
     const user = req.cookies.userid;
     console.log(req.cookies,'user');
-    // '$or':[{from: user, to: user}]
-    Chat.find({}, function(err, doc){
-        if(!err) {
-            return res.json({code: 1, data: doc});
-        }else {
-            console.log('/getMsg:'+err)
-        }
+    User.find({}, function(err, doc){
+        let users = {};
+        doc.forEach(item=>{
+            users[item._id] = {name: item.user, avatar: item.avatar}
+        })
+        Chat.find({'$or':[{from: user, to: user}]}, function(err, doc){
+            if(!err) {
+                return res.json({code: 1, data: doc, users: users});
+            }else {
+                console.log('/getMsg:'+err)
+            }
+        })
     })
+    
 })
 
 Router.post('/register', function(req, res){

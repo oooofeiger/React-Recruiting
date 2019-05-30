@@ -6,16 +6,17 @@ export default{
     namespace: 'chat',
     state:{
         chatMsg: [],
+        users: {},
         unRead: 0
     },
     effects: {
         *handleGetChatMsg({ payload }, {call, put}){
             try {
                 const res = yield call(getChatMsg, payload);
-                const { data } = res;
+                const { data, users } = res;
                 yield put({
                     type: 'save',
-                    payload: { chatMsg:data, getChatMsg: res, unRead: data.filter((item)=>(item.read=== false)).length}
+                    payload: { chatMsg:data, users: users, getChatMsg: res, unRead: data.filter((item)=>(item.read=== false)).length}
                 })
             } catch (error) {
                 console.log(error)

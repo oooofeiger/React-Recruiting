@@ -7,7 +7,7 @@ import styles from './style.less';
 
 const TabBarItem = TabBar.Item;
 
-@connect(({user})=>({user}))
+@connect(({user,chat})=>({user,chat}))
 class BottomNavListBar extends React.Component{
     static propTypes = {
         navList: PropTypes.array.isRequired
@@ -38,6 +38,7 @@ class BottomNavListBar extends React.Component{
     render(){
         const navList = this.props.navList.filter(item=>!item.hide);
         const { selectedTab } = this.state;
+        const { unRead } = this.props.chat;
         
         console.log(navList)
         return (
@@ -52,6 +53,7 @@ class BottomNavListBar extends React.Component{
                 {
                     navList && navList.map((item)=>(
                         <TabBarItem
+                            badge={item.path === '/accout/msg'?unRead:0}
                             key={item.path}
                             title={item.text}
                             icon={{uri: require(`../../assets/images/${item.icon}.png`)}}
