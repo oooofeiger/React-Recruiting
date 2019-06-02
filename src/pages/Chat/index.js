@@ -23,19 +23,22 @@ class Chat extends React.Component{
 
     componentDidMount(){
         const { dispatch, chat } = this.props;
+        const { userId } = this.state;
         if(chat.chatMsg.length) return;
         dispatch({
-            type: 'chat/handleGetChatMsg'
+            type: 'chat/handleGetChatMsg',
+            payload: {userid: userId}
         })
         socket.on('recvmsg',(data)=>{
-            console.log('recvmsg',data); 
+            console.log('recvmsg_chat',data); 
             dispatch({
                 type: 'chat/handleRecvMsg',
-                payload: {...data}
+                payload: {...data, userid: userId}
             })
         })
     
-      }
+    }
+
 
       //todo: 重复监听recvmsg，一次发送产生三次聊天记录
     
@@ -47,6 +50,12 @@ class Chat extends React.Component{
         socket.emit('sendmsg',{from, to, msg});
         this.setState({text: ''})
     }
+
+    handleKeyDown = (e) => {
+        console.log(e)
+    }
+
+
 
     render(){
         const { chat } = this.props;
@@ -94,7 +103,7 @@ class Chat extends React.Component{
                                     text: val
                                 })
                             }}
-                            extra={<span  style={{display: 'block',height:'100%',lineHeight: '44px'}} onClick={this.handleSubmit}>发送</span>}
+                            extra={<span  style={{display: 'block',height:'100%',lineHeight: '44px'}} onKeyDown={this.handleKeyDown} onClick={this.handleSubmit}>发送</span>}
                         ></InputItem>
                     </List>
                 </div>

@@ -13,16 +13,18 @@ const socket = io('ws://localhost:9093');
 class Dashboard extends React.Component{
 
   componentDidMount(){
-    const { dispatch, chat } = this.props;
+    const { dispatch, chat, user } = this.props;
     if(chat.chatMsg.length) return;
+    const userid = user.access.data._id;
     dispatch({
-        type: 'chat/handleGetChatMsg'
+        type: 'chat/handleGetChatMsg',
+        payload: {userid}
     })
     socket.on('recvmsg',(data)=>{
-        console.log('recvmsg',data); 
+        console.log('recvmsg_layout',data); 
         dispatch({
             type: 'chat/handleRecvMsg',
-            payload: {...data}
+            payload: {...data,userid}
         })
     })
 

@@ -26,8 +26,9 @@ Router.get('/getMsg', function(req, res){
         doc.forEach(item=>{
             users[item._id] = {name: item.user, avatar: item.avatar}
         })
-        Chat.find({'$or':[{from: user, to: user}]}, function(err, doc){
+        Chat.find({'$or':[{from: user},{to: user}]}, function(err, doc){
             if(!err) {
+                console.log('getMsg',doc)
                 return res.json({code: 1, data: doc, users: users});
             }else {
                 console.log('/getMsg:'+err)

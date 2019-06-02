@@ -17,6 +17,7 @@ io.on('connection', (socket) => {
         const chatId = [from, to].sort().join('_');
         Chat.create({chatId, from, to, content:msg}, function(err, doc){
             if(!err){
+                console.log('保存消息成功',doc)
                 io.emit('recvmsg', Object.assign({}, doc._doc))
             }
         })
