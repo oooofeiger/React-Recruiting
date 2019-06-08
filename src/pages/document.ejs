@@ -7,7 +7,7 @@
       var deviceWidth = document.documentElement.clientWidth;
       if(deviceWidth > 640) deviceWidth = 640;  //如果大于640视为pc端
       var rate = 750/100; //以iphone6的宽750为标准
-      document.documentElement.style.fontSize = document.documentElement.clientWidth * window.devicePixelRatio / rate + 'px';
+      document.documentElement.style.fontSize = document.documentElement.clientWidth * (window.devicePixelRatio>2?2:window.devicePixelRatio) / rate + 'px';
   </script>
   <title>React Recruiting</title>
 </head>

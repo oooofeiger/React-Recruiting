@@ -24,7 +24,7 @@ export default{
             }
         },
         *handleRecvMsg({ payload }, {call, put, select}){
-            try {debugger;
+            try {
                 let {chatMsg, unRead} = yield select(state=>state.chat);
                 const {userid, to} = payload;//当前的用户id
                 yield put({

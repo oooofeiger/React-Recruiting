@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'dva';
 import router from 'umi/router';
-import { List, InputItem, NavBar, Icon } from 'antd-mobile';
+import { List, InputItem, NavBar, Icon, Grid } from 'antd-mobile';
 import { getChatId } from '@/utils/tool';
 import style from './style.less';
 
@@ -9,6 +9,9 @@ import io from 'socket.io-client';
 const socket = io('ws://localhost:9093');
 
 const Item = List.Item;
+const emoji = '❤ ☺ ☹ ☠ ✌ ☝ ✍ ♂ ♀️ ☂ ☕ ☘ ☀ ☁ ⚡ ❄ ☃ ☄ ♟ ⚓ ✈ ⌛ ⌚ ☎ ⌨ ✉ ✏ ✒ ✂ ⚒ ⚔ ⚙ ⚖ ⚗ ❣ ♨ ♠ ♥ ♦ ♣ ♿ ⚠ ☢ ☣ ↗ ➡ ↘ ↙ ↖ ↕ ↔ ↩ ↪ ⤴ ⤵ ⚛ ✡ ☸ ☯ ✝ ☦ ☪ ☮ ♈ ♉ ♋ ♌ ♾ ♻'
+                    .split(' ').filter(v=>v).map(v=>({text: v}));
+
 @connect(({chat, user})=>({chat, user:user.access.data}))
 class Chat extends React.Component{
     constructor(props){
@@ -17,7 +20,8 @@ class Chat extends React.Component{
             text: '',
             msg: [],
             userId: props.user._id,
-            targetId: props.match.params.user
+            targetId: props.match.params.user,
+            showEmoji: false
         }
     }
 
@@ -36,11 +40,9 @@ class Chat extends React.Component{
                 payload: {...data, userid: userId}
             })
         })
-    
+        
+        
     }
-
-
-      //todo: 重复监听recvmsg，一次发送产生三次聊天记录
     
     handleSubmit = () => {
         const { user, chat, dispatch, match } = this.props;
@@ -52,19 +54,45 @@ class Chat extends React.Component{
     }
 
     handleKeyDown = (e) => {
-        console.log(e)
+        if(e.keyCode === 13){
+            this.handleSubmit();
+        }
+        
     }
 
+    openEmoji = () => {
+        this.setState({
+            showEmoji: !this.state.showEmoji
+        },()=>{
+            this.fixCarousel();
+        })
+    }
+
+    fixCarousel = () => {
+        //修复antd-mobile的Grid显示bug
+        setTimeout(function(){
+            window.dispatchEvent(new Event('resize'));
+        },0)
+    }
+
+    handleClickEmoji = (el) => {
+        console.log(el);
+        const { text } = this.state;
+        this.setState({
+            text: text+el.text
+        })
+    }
 
 
     render(){
         const { chat } = this.props;
-        const { text, userId, targetId } = this.state;
+        const { text, userId, targetId, showEmoji } = this.state;
         if(!chat.users[userId])return null;
         const chatId = getChatId(userId, targetId);
-        const chatMsg = chat.chatMsg.filter(v=>v.chatId === chatId)
+        const chatMsg = chat.chatMsg.filter(v=>v.chatId === chatId);
+
         return (
-            <div>
+            <div onKeyDown={this.handleKeyDown}>
                 <NavBar 
                     mode="dark"
                     icon={<Icon type="left"/>}
@@ -103,9 +131,18 @@ class Chat extends React.Component{
                                     text: val
                                 })
                             }}
-                            extra={<span  style={{display: 'block',height:'100%',lineHeight: '44px'}} onKeyDown={this.handleKeyDown} onClick={this.handleSubmit}>发送</span>}
+                            extra={
+                                <div>
+                                    <span  style={{height:'100%',lineHeight: '44px',paddingRight:'15px',display:'inline-block'}}  onClick={this.openEmoji}>❤</span>
+                                    <span  style={{height:'100%',lineHeight: '44px'}}  onClick={this.handleSubmit}>发送</span>
+                                </div>
+                            }
                         ></InputItem>
                     </List>
+                    {
+                        showEmoji ? <Grid data={emoji} columnNum={7} carouselMaxRow={4} isCarousel={true} onClick={this.handleClickEmoji}/> : null
+                    }
+                    
                 </div>
             </div>
             

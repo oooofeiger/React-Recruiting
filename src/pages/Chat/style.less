@@ -9,9 +9,11 @@
                 padding-right: 15px;
                 text-align: right;
             }
+            
         }
         
     }
+    
 }
 .stickFooter{
     z-index: 10;
@@ -19,9 +21,16 @@
     bottom: 0;
     width: 100%;
     background: #eee;
-    :global{
-        .am-list-item .am-input-extra{
-            max-height: 100px;
-        }
+    touch-action: pan-y;
+}
+:global{
+    .am-list-item .am-input-extra{
+        max-height: 100px;
+    }
+    .am-grid-icon{
+        display: none;
+    }
+    .am-grid-text{
+        margin-top: 0;
     }
 }
